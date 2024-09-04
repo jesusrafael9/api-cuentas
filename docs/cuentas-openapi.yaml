@@ -1,0 +1,322 @@
+openapi: "3.1.0"
+info:
+  title: "cuentas API"
+  description: "cuentas API"
+  version: "1.0.0"
+servers:
+  - url: "https://cuentas"
+paths:
+  /clientes/{id}:
+    get:
+      summary: "GET clientes/{id}"
+      operationId: "getClienteById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Cliente"
+  /cuentas:
+    get:
+      summary: "GET cuentas"
+      operationId: "getAllCuentas"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Cuenta"
+    post:
+      summary: "POST cuentas"
+      operationId: "createCuenta"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cuenta"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Cuenta"
+  /cuentas/{id}:
+    get:
+      summary: "GET cuentas/{id}"
+      operationId: "getCuentaById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Cuenta"
+    put:
+      summary: "PUT cuentas/{id}"
+      operationId: "updateCuenta"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cuenta"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Cuenta"
+    delete:
+      summary: "DELETE cuentas/{id}"
+      operationId: "deleteCuenta"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Void"
+  /movimientos:
+    get:
+      summary: "GET movimientos"
+      operationId: "getAllMovimientos"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/MovimientoDTO"
+    post:
+      summary: "POST movimientos"
+      operationId: "createMovimiento"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MovimientoDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Movimiento"
+  /movimientos/cuenta/{cuentaId}:
+    get:
+      summary: "GET movimientos/cuenta/{cuentaId}"
+      operationId: "getMovimientosByCuentaId"
+      parameters:
+        - name: "cuentaId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Movimiento"
+  /movimientos/reportes:
+    get:
+      summary: "GET movimientos/reportes"
+      operationId: "getReporteMovimientos"
+      parameters:
+        - name: "cuentaId"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+        - name: "fechaInicio"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "fechaFin"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/MovimientoDTO"
+  /movimientos/{id}:
+    get:
+      summary: "GET movimientos/{id}"
+      operationId: "getMovimientoById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MovimientoDTO"
+    put:
+      summary: "PUT movimientos/{id}"
+      operationId: "updateMovimiento"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Movimiento"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Movimiento"
+    delete:
+      summary: "DELETE movimientos/{id}"
+      operationId: "deleteMovimiento"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Void"
+components:
+  schemas:
+    Movimiento:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        fecha:
+          type: "string"
+          format: "date-time"
+        tipoMovimiento:
+          type: "string"
+          enum:
+            - "RETIRO"
+            - "DEPOSITO"
+        valor:
+          type: "number"
+          format: "double"
+        saldo:
+          type: "number"
+          format: "double"
+        cuenta:
+          $ref: "#/components/schemas/Cuenta"
+    Cuenta:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        clienteId:
+          type: "integer"
+          format: "int64"
+        numeroCuenta:
+          type: "string"
+        tipoCuenta:
+          type: "string"
+        saldoInicial:
+          type: "number"
+          format: "double"
+        estado:
+          type: "string"
+        movimientos:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Movimiento"
+    Void:
+      type: "object"
+      properties: { }
+    MovimientoDTO:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        tipoMovimiento:
+          type: "string"
+        fecha:
+          type: "string"
+          format: "date-time"
+        valor:
+          type: "number"
+          format: "double"
+        saldo:
+          type: "number"
+          format: "double"
+        cuentaId:
+          type: "integer"
+          format: "int64"
+    Cliente:
+      type: "object"
+      properties: { }
