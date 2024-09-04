@@ -43,11 +43,11 @@ docker build -t cuentas-app .
 
 Correr imagen docker
 ```shell
-docker run -p 8080:8080 cuentas-app
+docker run -p 8081:8081 cuentas-app
 ```
 ### POSTMAN
 [Cuentas.postman_collection.json](docs%2FCuentas.postman_collection.json)
 [Movimiento.postman_collection.json](docs%2FMovimiento.postman_collection.json)
 
 ### Documentación de Open API
-[Visualiza la documentación en Redoc Editor](https://redocly.github.io/redoc/?url=)
+[Visualiza la documentación en Redoc Editor](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/jesusrafael9/api-cuentas/main/docs/cuentas-openapi.yaml)
